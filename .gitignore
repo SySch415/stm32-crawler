@@ -1,7 +1,9 @@
 build/
+compile_commands.json
 
 #kicad junk
 *.kicad_pro.lck
 *-backups/
 _autosave-*
 fp-info-cache
+.history/
