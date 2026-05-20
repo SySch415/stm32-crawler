@@ -1,7 +1,7 @@
-#include "../drivers/include/nrf24+.hpp"
-#include "../hal_lib/include/gpio.hpp"
-#include "../hal_lib/include/rcc.hpp"
-#include "../hal_lib/include/spi.hpp"
+#include "gpio.hpp"
+#include "nrf24.hpp"
+#include "rcc.hpp"
+#include "spi.hpp"
 #include <cstdint>
 #include <stdint.h>
 

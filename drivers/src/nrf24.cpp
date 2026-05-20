@@ -1,4 +1,4 @@
-#include "../include/nrf24+.hpp"
+#include "nrf24.hpp"
 #include <cstdint>
 
 namespace driver {

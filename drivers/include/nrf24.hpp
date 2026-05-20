@@ -1,6 +1,6 @@
 #pragma once
-#include "../../hal_lib/include/gpio.hpp"
-#include "../../hal_lib/include/spi.hpp"
+#include "gpio.hpp"
+#include "spi.hpp"
 #include <cstdint>
 
 namespace driver {
