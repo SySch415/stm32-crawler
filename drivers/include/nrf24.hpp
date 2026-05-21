@@ -12,10 +12,17 @@ public:
   uint8_t get_status();
   uint8_t read_reg(uint8_t reg_addr);
   void write_reg(uint8_t reg_addr, uint8_t val);
+  void read_reg(uint8_t reg_addr, uint8_t *data, uint8_t len);
+  void write_reg(uint8_t reg_addr, const uint8_t *data, uint8_t val);
 
   void set_rf_channel(uint8_t channel);
   void set_tx_addr(const uint8_t *addr, uint8_t len);
   void set_rx_addr(uint8_t pipe, const uint8_t *addr, uint8_t len);
+
+  void pw_up_tx();
+  void flush_tx();
+  void pw_up_rx();
+  void flush_rx();
 
   void transmit_data(const uint8_t *data, uint8_t len);
   bool data_ready();
@@ -61,6 +68,8 @@ constexpr uint8_t STATUS =
 constexpr uint8_t OBSERVE_TX = 0x08; // transmit observe register
 constexpr uint8_t RPD = 0x09;        // recieved power deteictor
 constexpr uint8_t RX_ADDR_P0 = 0x0A; // recieve address date pipe 0
+
+constexpr uint8_t TX_ADDR = 0x10;
 
 }; // namespace nrf24_cmd_reg
 }; // namespace driver
