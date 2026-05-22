@@ -19,15 +19,42 @@ set(CMAKE_C_FLAGS "${MCU_FLAGS} -Wall -nostdlib")
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/main/linker.ld)
 set(CMAKE_EXE_LINKER_FLAGS "-T ${LINKER_SCRIPT} -nostdlib")
 
+set(SHARED_SOURCES hal_lib/src/gpio.cpp hal_lib/src/rcc.cpp hal_lib/src/spi.cpp drivers/src/nrf24.cpp)
+
+add_executable(controller.elf)
+
+target_sources(controller.elf PRIVATE ${SHARED_SOURCES} controller/main.cpp controller/startup.cpp)
+
+target_include_directories(controller.elf PRIVATE hal_lib/include drivers/include)
+
+
 add_executable(crawler.elf)
 
-target_sources(crawler.elf PRIVATE hal_lib/src/gpio.cpp hal_lib/src/rcc.cpp hal_lib/src/spi.cpp drivers/src/nrf24.cpp main/main.cpp main/startup.cpp)
+target_sources(crawler.elf PRIVATE ${SHARED_SOURCES} main/main.cpp main/startup.cpp)
 
 target_include_directories(crawler.elf PRIVATE hal_lib/include drivers/include)
 
-set_target_properties(crawler.elf PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
+function(add_firmware TARGET)
+  set_target_properties(${TARGET} PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 
-add_custom_command(TARGET crawler.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY} -O binary crawler.elf crawler.bin COMMENT "Beep boop bop")
+  add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_OBJCOPY} -O binary ${TARGET} ${TARGET}.bin COMMENT "Beep boop bop - generate ${TARGET}.bin")
+endfunction()
+
+add_firmware(controller.elf)
+add_firmware(crawler.elf)
+
+add_custom_target(flash
+    COMMAND openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+        -c "init"
+        -c "reset init"
+        -c "flash probe 0"
+        -c "flash write_image erase ${CMAKE_BINARY_DIR}/controller.bin 0x08000000"
+        -c "verify_image ${CMAKE_BINARY_DIR}/controller.bin 0x08000000"
+        -c "reset run"
+        -c "exit"
+    DEPENDS controller.elf
+    COMMENT "beep boop - Flashing controller.bin"
+)
 
 add_custom_target(flash
     COMMAND openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
