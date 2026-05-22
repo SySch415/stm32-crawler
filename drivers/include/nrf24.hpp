@@ -18,6 +18,7 @@ public:
   void set_rf_channel(uint8_t channel);
   void set_tx_addr(const uint8_t *addr, uint8_t len);
   void set_rx_addr(uint8_t pipe, const uint8_t *addr, uint8_t len);
+  void set_payload_size(uint8_t pipe, uint8_t size);
 
   void pw_up_tx();
   void flush_tx();
@@ -70,6 +71,7 @@ constexpr uint8_t RPD = 0x09;        // recieved power deteictor
 constexpr uint8_t RX_ADDR_P0 = 0x0A; // recieve address date pipe 0
 
 constexpr uint8_t TX_ADDR = 0x10;
+constexpr uint8_t RX_PW_P0 = 0x11; // rx payload
 
 }; // namespace nrf24_cmd_reg
 }; // namespace driver

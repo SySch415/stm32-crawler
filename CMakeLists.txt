@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(crawler C CXX ASM)
+project(rock_crawler C CXX ASM)
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
@@ -13,10 +13,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(MCU_FLAGS "-mcpu=cortex-m4 -mthumb")
-set(CMAKE_CXX_FLAGS "${MCU_FLAGS} -Wall -fno-exceptions -fno-rtti -nostdlib")
+set(CMAKE_CXX_FLAGS "${MCU_FLAGS} -g -Wall -fno-exceptions -fno-rtti -nostdlib")
 set(CMAKE_C_FLAGS "${MCU_FLAGS} -Wall -nostdlib")
 
-set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/main/linker.ld)
+set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/linker.ld)
 set(CMAKE_EXE_LINKER_FLAGS "-T ${LINKER_SCRIPT} -nostdlib")
 
 set(SHARED_SOURCES hal_lib/src/gpio.cpp hal_lib/src/rcc.cpp hal_lib/src/spi.cpp drivers/src/nrf24.cpp)
@@ -30,20 +30,21 @@ target_include_directories(controller.elf PRIVATE hal_lib/include drivers/includ
 
 add_executable(crawler.elf)
 
-target_sources(crawler.elf PRIVATE ${SHARED_SOURCES} main/main.cpp main/startup.cpp)
+target_sources(crawler.elf PRIVATE ${SHARED_SOURCES} crawler/main.cpp crawler/startup.cpp)
 
 target_include_directories(crawler.elf PRIVATE hal_lib/include drivers/include)
 
 function(add_firmware TARGET)
+  string(REPLACE ".elf" "" BASE ${TARGET})
   set_target_properties(${TARGET} PROPERTIES LINK_DEPENDS ${LINKER_SCRIPT})
 
-  add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_OBJCOPY} -O binary ${TARGET} ${TARGET}.bin COMMENT "Beep boop bop - generate ${TARGET}.bin")
+  add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_OBJCOPY} -O binary ${TARGET} ${BASE}.bin COMMENT "Beep boop bop - generate ${TARGET}.bin")
 endfunction()
 
 add_firmware(controller.elf)
 add_firmware(crawler.elf)
 
-add_custom_target(flash
+add_custom_target(flash-controller
     COMMAND openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
         -c "init"
         -c "reset init"
@@ -56,7 +57,7 @@ add_custom_target(flash
     COMMENT "beep boop - Flashing controller.bin"
 )
 
-add_custom_target(flash
+add_custom_target(flash-crawler
     COMMAND openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
         -c "init"
         -c "reset init"

@@ -25,10 +25,16 @@ extern "C" int main(void) {
 
   [[maybe_unused]] uint8_t status = rf.get_status();
 
+  uint8_t addr[] = {0xE7, 0xE7, 0xE7, 0xE7, 0xE7};
   rf.set_rf_channel(76);
-  [[maybe_unused]] volatile uint8_t channel =
-      rf.read_reg(driver::nrf24_cmd_reg::RF_CH);
+  rf.set_tx_addr(addr, sizeof(addr));
+  rf.set_payload_size(0, 1);
 
   while (1) {
+    uint8_t msg = 0xAB;
+
+    rf.transmit_data(&msg, 1);
+    for (int i{0}; i < 500000; i++) {
+    }
   }
 }

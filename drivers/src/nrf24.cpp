@@ -61,6 +61,10 @@ void driver::NRF24::set_rx_addr(uint8_t pipe, const uint8_t *addr,
   write_reg(driver::nrf24_cmd_reg::RX_ADDR_P0 + pipe, addr, len);
 }
 
+void driver::NRF24::set_payload_size(uint8_t pipe, uint8_t size) {
+  write_reg(driver::nrf24_cmd_reg::RX_PW_P0 + pipe, size);
+}
+
 void driver::NRF24::pw_up_tx() { write_reg(driver::nrf24_cmd_reg::CONFIG, 14); }
 
 void driver::NRF24::flush_tx() {
