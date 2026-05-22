@@ -80,6 +80,43 @@ void driver::NRF24::flush_rx() {
   chip_deselect();
 }
 
+void driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
+  pw_up_tx();
+  chip_select();
+  spi_.transfer_data(driver::nrf24_cmd_reg::W_TX_PAYLOAD);
+  for (uint8_t i{0}; i < len; i++) {
+    spi_.transfer_data(data[i]);
+  }
+  chip_deselect();
+
+  ce_.set();
+  for (volatile int i{0}; i < 100; i++) {
+  }
+  ce_.reset();
+
+  [[maybe_unused]] uint8_t status{get_status()};
+  while (!(status & (1 << 5)) && !(status & (1 << 4))) {
+    status = get_status();
+  }
+
+  flush_tx();
+}
+
+void driver::NRF24::receive_data(uint8_t *data, uint8_t len) {
+  pw_up_rx();
+  chip_select();
+  spi_.transfer_data(driver::nrf24_cmd_reg::R_RX_PAYLOAD);
+  for (uint8_t i{0}; i < len; i++) {
+    data[i] = spi_.transfer_data(driver::nrf24_cmd_reg::NOP);
+  }
+  chip_deselect();
+}
+
+bool driver::NRF24::data_ready() {
+  uint8_t status{get_status()};
+  return status & (1 << 6);
+}
+
 void driver::NRF24::chip_select() { csn_.reset(); }
 
 void driver::NRF24::chip_deselect() { csn_.set(); }

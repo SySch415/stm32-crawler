@@ -26,7 +26,7 @@ public:
 
   void transmit_data(const uint8_t *data, uint8_t len);
   bool data_ready();
-  uint8_t receive_data(uint8_t *data, uint8_t len);
+  void receive_data(uint8_t *data, uint8_t len);
 
 private:
   hal::SPI &spi_;
@@ -41,7 +41,7 @@ namespace nrf24_cmd_reg {
 
 constexpr uint8_t R_REGISTER = 0x00;   // read cmd and status registers
 constexpr uint8_t W_REGISTER = 0x20;   // write to cmd and status registers
-constexpr uint8_t R_TX_PAYLOAD = 0x61; // read rx-payload
+constexpr uint8_t R_RX_PAYLOAD = 0x61; // read rx-payload
 constexpr uint8_t W_TX_PAYLOAD = 0xA0; // write tx payload
 constexpr uint8_t FLUSH_TX = 0xE1;     // flush tx fifo, used in tx mode
 constexpr uint8_t FLUSH_RX = 0xE2;     // flush rx fifo, used in rx mode
