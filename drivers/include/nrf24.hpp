@@ -24,6 +24,7 @@ public:
   void flush_tx();
   void pw_up_rx();
   void flush_rx();
+  void clear_flags();
 
   void transmit_data(const uint8_t *data, uint8_t len);
   bool data_ready();

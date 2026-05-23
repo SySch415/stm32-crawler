@@ -84,6 +84,10 @@ void driver::NRF24::flush_rx() {
   chip_deselect();
 }
 
+void driver::NRF24::clear_flags() {
+  write_reg(driver::nrf24_cmd_reg::STATUS, 0x70);
+}
+
 void driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
   pw_up_tx();
   chip_select();
@@ -102,7 +106,7 @@ void driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
   while (!(status & (1 << 5)) && !(status & (1 << 4))) {
     status = get_status();
   }
-
+  clear_flags();
   flush_tx();
 }
 
@@ -114,6 +118,8 @@ void driver::NRF24::receive_data(uint8_t *data, uint8_t len) {
     data[i] = spi_.transfer_data(driver::nrf24_cmd_reg::NOP);
   }
   chip_deselect();
+
+  clear_flags();
 }
 
 bool driver::NRF24::data_ready() {

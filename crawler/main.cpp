@@ -2,13 +2,34 @@
 #include "nrf24.hpp"
 #include "rcc.hpp"
 #include "spi.hpp"
+#include "timer.hpp"
 #include <cstdint>
 #include <stdint.h>
 
 extern "C" int main(void) {
   hal::RCC rcc;
   rcc.clock_enable(hal::RCC::Periph::GPIOA);
+  rcc.clock_enable(hal::RCC::Periph::GPIOB);
   rcc.clock_enable(hal::RCC::Periph::SPI1);
+  rcc.clock_enable(hal::RCC::Periph::TIM4);
+
+  hal::TIMX<hal::TimSize::BIT16> pwm_timer(hal::TimType::TIM4);
+
+  hal::GPIO pwm_out(hal::GPIO::Port::B, 6, hal::GPIO::Mode::AF);
+  hal::GPIO ain1_out(hal::GPIO::Port::B, 7, hal::GPIO::Mode::Output);
+  hal::GPIO ain2_out(hal::GPIO::Port::B, 8, hal::GPIO::Mode::Output);
+
+  pwm_out.set_alt_func(2);
+
+  pwm_timer.set_PSC(0);
+  pwm_timer.set_ARR(15999);
+  pwm_timer.set_PWM_mode_1(1);
+  pwm_timer.set_CCR(1, 8000);
+  pwm_timer.enable_CCER(1);
+  pwm_timer.enable_Counter();
+  pwm_timer.set_CNT(0);
+
+  ain1_out.set();
 
   hal::GPIO led(hal::GPIO::Port::A, 0, hal::GPIO::Mode::Output);
 
