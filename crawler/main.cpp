@@ -52,17 +52,24 @@ extern "C" int main(void) {
 
   rf.set_rf_channel(76);
   rf.set_rx_addr(0, addr, sizeof(addr));
-  rf.set_payload_size(0, 1);
+  rf.set_payload_size(0, 3);
   rf.write_reg(driver::nrf24_cmd_reg::EN_RXADDR, driver::nrf24_cmd_reg::EN_AA);
   rf.pw_up_rx();
+
+  rf.flush_rx();
+  rf.clear_flags();
+
+  // rf.write_reg(0x01, 0x00);
 
   volatile uint8_t debug_status{0};
   while (1) {
     debug_status = rf.get_status();
     if (rf.data_ready()) {
-      uint8_t recieved;
-      rf.receive_data(&recieved, 1);
-      led.set();
+      uint8_t recieved[3];
+      rf.receive_data(/*reinterpret_cast<uint8_t *>(&recieved)*/ recieved, 3);
+
+      if (recieved[0] == 0xAB)
+        led.set();
     }
   }
 }

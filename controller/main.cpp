@@ -32,18 +32,26 @@ extern "C" int main(void) {
 
   [[maybe_unused]] uint8_t status = rf.get_status();
 
-  uint8_t addr[] = {0xE7, 0xE7, 0xE7, 0xE7, 0xE7};
+  uint8_t addr[]{0xE7, 0xE7, 0xE7, 0xE7, 0xE7};
   rf.set_rf_channel(76);
   rf.set_tx_addr(addr, sizeof(addr));
-  rf.set_payload_size(0, 1);
+  rf.set_payload_size(0, 3);
 
-  volatile uint16_t vr_x_val{0};
+  uint16_t vr_x_val{0};
+
+  rf.flush_tx();
+  rf.clear_flags();
+
+  // DEBUG: disable auto_ack test
+  // rf.write_reg(0x01, 0x00);
+  // rf.write_reg(0x04, 0x00);
 
   while (1) {
-    uint8_t msg = 0xAB;
+    [[maybe_unused]] uint8_t tx_status_debug{0};
+    uint8_t msg[3]{0xAB, 0xCD, 0xEF};
     vr_x_val = adc.read(hal::ADC::CH::CH0);
 
-    rf.transmit_data(&msg, 1);
+    rf.transmit_data(/*reinterpret_cast<uint8_t *>(&vr_x_val)*/ msg, 3);
     for (int i{0}; i < 500000; i++) {
     }
   }

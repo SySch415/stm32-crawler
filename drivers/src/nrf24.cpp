@@ -98,7 +98,7 @@ void driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
   chip_deselect();
 
   ce_.set();
-  for (volatile int i{0}; i < 100; i++) {
+  for (volatile int i{0}; i < 10000; i++) {
   }
   ce_.reset();
 
