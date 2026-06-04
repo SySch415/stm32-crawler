@@ -19,7 +19,7 @@ set(CMAKE_C_FLAGS "${MCU_FLAGS} -Wall -nostdlib")
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/linker.ld)
 set(CMAKE_EXE_LINKER_FLAGS "-T ${LINKER_SCRIPT} -nostdlib")
 
-set(SHARED_SOURCES hal_lib/src/gpio.cpp hal_lib/src/rcc.cpp hal_lib/src/spi.cpp drivers/src/nrf24.cpp)
+set(SHARED_SOURCES hal_lib/src/gpio.cpp hal_lib/src/rcc.cpp hal_lib/src/spi.cpp drivers/src/nrf24.cpp hal_lib/src/adc.cpp)
 
 add_executable(controller.elf)
 
