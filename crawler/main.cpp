@@ -52,7 +52,7 @@ extern "C" int main(void) {
 
   rf.set_rf_channel(76);
   rf.set_rx_addr(0, addr, sizeof(addr));
-  rf.set_payload_size(0, 3);
+  rf.set_payload_size(0, 5);
   rf.write_reg(driver::nrf24_cmd_reg::EN_RXADDR, driver::nrf24_cmd_reg::EN_AA);
   rf.pw_up_rx();
 
@@ -65,11 +65,16 @@ extern "C" int main(void) {
   while (1) {
     debug_status = rf.get_status();
     if (rf.data_ready()) {
-      uint8_t recieved[3];
-      rf.receive_data(/*reinterpret_cast<uint8_t *>(&recieved)*/ recieved, 3);
+      uint8_t recieved[5];
+      rf.receive_data(/*reinterpret_cast<uint8_t *>(&recieved)*/ recieved, 5);
 
-      if (recieved[0] == 0xAB)
+      uint16_t throttle = recieved[0] | (recieved[1] << 8);
+
+      if (throttle > 2048) {
         led.set();
+      } else {
+        led.reset();
+      }
     }
   }
 }

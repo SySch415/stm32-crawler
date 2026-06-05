@@ -26,7 +26,7 @@ public:
   void flush_rx();
   void clear_flags();
 
-  void transmit_data(const uint8_t *data, uint8_t len);
+  uint8_t transmit_data(const uint8_t *data, uint8_t len);
   bool data_ready();
   void receive_data(uint8_t *data, uint8_t len);
 

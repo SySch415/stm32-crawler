@@ -6,7 +6,29 @@ namespace driver {
 driver::NRF24::NRF24(hal::SPI &spi, hal::GPIO &csn, hal::GPIO &ce)
     : spi_(spi), csn_(csn), ce_(ce) {
   csn_.set();
-  ce.reset();
+  ce_.reset();
+
+  for (int j = 0; j < 10; j++) {
+    csn_.reset();
+    for (volatile int i{0}; i < 100; i++)
+      ;
+    csn_.set();
+    for (volatile int i{0}; i < 100; i++)
+      ;
+  }
+
+  write_reg(0x00, 0x08);
+  write_reg(0x01, 0x00);
+  write_reg(0x02, 0x03);
+  write_reg(0x03, 0x03);
+  write_reg(0x04, 0x00);
+  write_reg(0x05, 0x02);
+  write_reg(0x06, 0x0F);
+  write_reg(0x1C, 0x00);
+  write_reg(0x1D, 0x00);
+  flush_tx();
+  flush_rx();
+  clear_flags();
 }
 
 uint8_t driver::NRF24::get_status() {
@@ -88,7 +110,7 @@ void driver::NRF24::clear_flags() {
   write_reg(driver::nrf24_cmd_reg::STATUS, 0x70);
 }
 
-void driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
+uint8_t driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
   pw_up_tx();
   chip_select();
   spi_.transfer_data(driver::nrf24_cmd_reg::W_TX_PAYLOAD);
@@ -106,8 +128,11 @@ void driver::NRF24::transmit_data(const uint8_t *data, uint8_t len) {
   while (!(status & (1 << 5)) && !(status & (1 << 4))) {
     status = get_status();
   }
+  uint8_t tx_debug{status};
   clear_flags();
   flush_tx();
+
+  return tx_debug;
 }
 
 void driver::NRF24::receive_data(uint8_t *data, uint8_t len) {
