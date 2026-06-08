@@ -31,7 +31,10 @@ extern "C" int main(void) {
 
   ain1_out.set();
 
-  hal::GPIO led(hal::GPIO::Port::A, 0, hal::GPIO::Mode::Output);
+  hal::GPIO led_throttle_up(hal::GPIO::Port::A, 0, hal::GPIO::Mode::Output);
+  hal::GPIO led_throttle_down(hal::GPIO::Port::A, 1, hal::GPIO::Mode::Output);
+  hal::GPIO led_steering_left(hal::GPIO::Port::A, 11, hal::GPIO::Mode::Output);
+  hal::GPIO led_steering_right(hal::GPIO::Port::A, 12, hal::GPIO::Mode::Output);
 
   hal::GPIO sck(hal::GPIO::Port::A, 5, hal::GPIO::Mode::AF);
   hal::GPIO miso(hal::GPIO::Port::A, 6, hal::GPIO::Mode::AF);
@@ -68,12 +71,31 @@ extern "C" int main(void) {
       uint8_t recieved[5];
       rf.receive_data(/*reinterpret_cast<uint8_t *>(&recieved)*/ recieved, 5);
 
-      uint16_t throttle = recieved[0] | (recieved[1] << 8);
+      uint16_t throttle{
+          static_cast<uint16_t>(recieved[0] | (recieved[1] << 8))};
+      uint16_t steering{
+          static_cast<uint16_t>(recieved[2] | (recieved[3] << 8))};
 
-      if (throttle > 2048) {
-        led.set();
+      if (!(throttle < 2148 && throttle > 1948) && throttle > 2148) {
+        led_throttle_down.reset();
+        led_throttle_up.set();
+      } else if (!(throttle < 2148 && throttle > 1948) && throttle < 1948) {
+        led_throttle_up.reset();
+        led_throttle_down.set();
       } else {
-        led.reset();
+        led_throttle_down.reset();
+        led_throttle_up.reset();
+      }
+
+      if (!(steering < 2248 && steering > 1948) && steering > 2248) {
+        led_steering_left.reset();
+        led_steering_right.set();
+      } else if (!(steering < 2248 && steering > 1948) && steering < 1948) {
+        led_steering_right.reset();
+        led_steering_left.set();
+      } else {
+        led_steering_left.reset();
+        led_steering_right.reset();
       }
     }
   }
