@@ -6,6 +6,38 @@
 #include <cstdint>
 #include <stdint.h>
 
+constexpr uint16_t CENTER{2048};
+constexpr uint16_t DEAD_BAND{100};
+constexpr uint16_t ADC_MAX{4095};
+constexpr uint16_t MOTOR_ARR{15999};
+
+void update_throttle(uint16_t throttle,
+                     hal::TIMX<hal::TimSize::BIT16> &pwm_timer,
+                     hal::GPIO &ain1_out, hal::GPIO &ain2_out) {
+
+  if (throttle > (CENTER + DEAD_BAND)) {
+    ain1_out.set();
+    ain2_out.reset();
+
+    uint16_t mag{static_cast<uint16_t>(throttle - (CENTER + DEAD_BAND))};
+    uint16_t duty{static_cast<uint16_t>((uint32_t)mag * MOTOR_ARR /
+                                        (ADC_MAX - (CENTER - DEAD_BAND)))};
+    pwm_timer.set_CCR(1, duty);
+  } else if (throttle < (CENTER - DEAD_BAND)) {
+    ain1_out.reset();
+    ain2_out.set();
+
+    uint16_t mag{static_cast<uint16_t>((CENTER - DEAD_BAND) - throttle)};
+    uint16_t duty{static_cast<uint16_t>((uint32_t)mag * MOTOR_ARR /
+                                        (CENTER - DEAD_BAND))};
+    pwm_timer.set_CCR(1, duty);
+  } else {
+    ain1_out.set();
+    ain2_out.set();
+    pwm_timer.set_CCR(1, 0);
+  }
+}
+
 extern "C" int main(void) {
   hal::RCC rcc;
   rcc.clock_enable(hal::RCC::Periph::GPIOA);
@@ -22,14 +54,11 @@ extern "C" int main(void) {
   pwm_out.set_alt_func(2);
 
   pwm_timer.set_PSC(0);
-  pwm_timer.set_ARR(15999);
+  pwm_timer.set_ARR(MOTOR_ARR);
   pwm_timer.set_PWM_mode_1(1);
-  pwm_timer.set_CCR(1, 8000);
   pwm_timer.enable_CCER(1);
   pwm_timer.enable_Counter();
   pwm_timer.set_CNT(0);
-
-  ain1_out.set();
 
   hal::GPIO led_throttle_up(hal::GPIO::Port::A, 0, hal::GPIO::Mode::Output);
   hal::GPIO led_throttle_down(hal::GPIO::Port::A, 1, hal::GPIO::Mode::Output);
@@ -76,15 +105,22 @@ extern "C" int main(void) {
       uint16_t steering{
           static_cast<uint16_t>(recieved[2] | (recieved[3] << 8))};
 
-      if (!(throttle < 2148 && throttle > 1948) && throttle > 2148) {
+      if (!(throttle < (CENTER + DEAD_BAND) &&
+            throttle > (CENTER - DEAD_BAND)) &&
+          throttle > (CENTER + DEAD_BAND)) {
         led_throttle_down.reset();
         led_throttle_up.set();
-      } else if (!(throttle < 2148 && throttle > 1948) && throttle < 1948) {
+        update_throttle(throttle, pwm_timer, ain1_out, ain2_out);
+      } else if (!(throttle < (CENTER + DEAD_BAND) &&
+                   throttle > (CENTER - DEAD_BAND)) &&
+                 throttle < (CENTER - DEAD_BAND)) {
         led_throttle_up.reset();
         led_throttle_down.set();
+        update_throttle(throttle, pwm_timer, ain1_out, ain2_out);
       } else {
         led_throttle_down.reset();
         led_throttle_up.reset();
+        update_throttle(throttle, pwm_timer, ain1_out, ain2_out);
       }
 
       if (!(steering < 2248 && steering > 1948) && steering > 2248) {
