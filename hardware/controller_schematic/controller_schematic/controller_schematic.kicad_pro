@@ -648,7 +648,7 @@
         "uuid": "f817205e-36d9-4a34-894d-6a75466d4bd0"
       }
     ],
-    "used_designators": "U1-2,STM32F411_BlackPill1",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [

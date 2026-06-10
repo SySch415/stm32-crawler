@@ -11,6 +11,10 @@ constexpr uint16_t DEAD_BAND{100};
 constexpr uint16_t ADC_MAX{4095};
 constexpr uint16_t MOTOR_ARR{15999};
 
+constexpr uint16_t STEERING_MIN{1000};
+constexpr uint16_t STEERING_MAX{2000};
+constexpr uint16_t STEERING_CENTER{1500};
+
 void update_throttle(uint16_t throttle,
                      hal::TIMX<hal::TimSize::BIT16> &pwm_timer,
                      hal::GPIO &ain1_out, hal::GPIO &ain2_out) {
@@ -38,20 +42,38 @@ void update_throttle(uint16_t throttle,
   }
 }
 
+void update_servo(uint16_t steering,
+                  hal::TIMX<hal::TimSize::BIT16> &servo_timer) {
+  uint16_t pulse{0};
+  if (steering > (CENTER + DEAD_BAND + 100) || steering < CENTER - DEAD_BAND) {
+    pulse = static_cast<uint16_t>(STEERING_MAX -
+                                  static_cast<uint32_t>(steering) *
+                                      (STEERING_MAX - STEERING_MIN) / ADC_MAX);
+  } else {
+    pulse = STEERING_CENTER;
+  }
+  servo_timer.set_CCR(1, pulse);
+}
+
 extern "C" int main(void) {
   hal::RCC rcc;
   rcc.clock_enable(hal::RCC::Periph::GPIOA);
   rcc.clock_enable(hal::RCC::Periph::GPIOB);
   rcc.clock_enable(hal::RCC::Periph::SPI1);
   rcc.clock_enable(hal::RCC::Periph::TIM4);
+  rcc.clock_enable(hal::RCC::Periph::TIM3);
 
   hal::TIMX<hal::TimSize::BIT16> pwm_timer(hal::TimType::TIM4);
+  hal::TIMX<hal::TimSize::BIT16> servo_timer(hal::TimType::TIM3);
 
   hal::GPIO pwm_out(hal::GPIO::Port::B, 6, hal::GPIO::Mode::AF);
   hal::GPIO ain1_out(hal::GPIO::Port::B, 7, hal::GPIO::Mode::Output);
   hal::GPIO ain2_out(hal::GPIO::Port::B, 8, hal::GPIO::Mode::Output);
 
+  hal::GPIO servo_pwm_out(hal::GPIO::Port::B, 4, hal::GPIO::Mode::AF);
+
   pwm_out.set_alt_func(2);
+  servo_pwm_out.set_alt_func(2);
 
   pwm_timer.set_PSC(0);
   pwm_timer.set_ARR(MOTOR_ARR);
@@ -59,6 +81,13 @@ extern "C" int main(void) {
   pwm_timer.enable_CCER(1);
   pwm_timer.enable_Counter();
   pwm_timer.set_CNT(0);
+
+  servo_timer.set_PSC(16);
+  servo_timer.set_ARR(19999);
+  servo_timer.set_PWM_mode_1(1);
+  servo_timer.enable_CCER(1);
+  servo_timer.enable_Counter();
+  servo_timer.set_CNT(0);
 
   hal::GPIO led_throttle_up(hal::GPIO::Port::A, 0, hal::GPIO::Mode::Output);
   hal::GPIO led_throttle_down(hal::GPIO::Port::A, 1, hal::GPIO::Mode::Output);
@@ -123,15 +152,22 @@ extern "C" int main(void) {
         update_throttle(throttle, pwm_timer, ain1_out, ain2_out);
       }
 
-      if (!(steering < 2248 && steering > 1948) && steering > 2248) {
+      if (!(steering < (CENTER + DEAD_BAND + 100) &&
+            steering > (CENTER - DEAD_BAND)) &&
+          steering > (CENTER + DEAD_BAND)) {
         led_steering_left.reset();
         led_steering_right.set();
-      } else if (!(steering < 2248 && steering > 1948) && steering < 1948) {
+        update_servo(steering, servo_timer);
+      } else if (!(steering < (CENTER + DEAD_BAND + 100) &&
+                   steering > (CENTER - DEAD_BAND)) &&
+                 steering < (CENTER - DEAD_BAND)) {
         led_steering_right.reset();
         led_steering_left.set();
+        update_servo(steering, servo_timer);
       } else {
         led_steering_left.reset();
         led_steering_right.reset();
+        update_servo(steering, servo_timer);
       }
     }
   }
