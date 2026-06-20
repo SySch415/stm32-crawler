@@ -3851,6 +3851,217 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Switch:SW_Nidec_CAS-120A1"
+			(pin_names
+				(offset 1)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "SW"
+				(at 0 4.318 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_Nidec_CAS-120A1"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Button_Switch_SMD:Nidec_Copal_CAS-120A"
+				(at 0 -10.16 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.nidec-components.com/e/catalog/switch/cas.pdf"
+				(at 0 -7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Switch, single pole double throw"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "*Nidec?Copal?CAS?120A*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "SW_Nidec_CAS-120A1_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.651 0.254) (xy 1.651 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 2.54)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 -2.54)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_Nidec_CAS-120A1_1_1"
+				(rectangle
+					(start -3.175 3.81)
+					(end 3.175 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(text "NOTE: jump stby to vcc+"
+		(exclude_from_sim no)
+		(at 87.63 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "c4a987a1-b2b6-4756-9035-bd800a360f96")
 	)
 	(junction
 		(at 121.92 80.01)
@@ -3877,28 +4088,22 @@
 		(uuid "4093cfa3-339c-4e56-8fda-81dad5bff281")
 	)
 	(junction
-		(at 149.86 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "43bade16-54cb-4ae2-8cb7-d908c03351d2")
-	)
-	(junction
 		(at 121.92 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "497705b3-3edd-437e-9a73-e10d86a61501")
 	)
 	(junction
+		(at 148.59 80.01)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4b74032f-d7b9-4131-8436-3cfef8658320")
+	)
+	(junction
 		(at 73.66 92.71)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4cda5987-4b94-4582-87d5-6345ecedbc8d")
-	)
-	(junction
-		(at 152.4 78.74)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "55762838-83cf-40c0-9bcc-46a07040ee09")
 	)
 	(junction
 		(at 142.24 36.83)
@@ -3913,10 +4118,10 @@
 		(uuid "5a8d7589-3fc8-4f86-9e46-1795b5c92fa0")
 	)
 	(junction
-		(at 109.22 31.75)
+		(at 152.4 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "8c189815-bee8-42b7-ac55-a8edb8c27231")
+		(uuid "90e19b7e-12f3-44da-9918-a04daafaaab0")
 	)
 	(junction
 		(at 165.1 43.18)
@@ -3929,6 +4134,22 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ac10dfd3-befa-48d1-93e0-459fb6af596f")
+	)
+	(junction
+		(at 109.22 34.29)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e4f94745-5ecb-49c1-aaec-deedbc935143")
+	)
+	(wire
+		(pts
+			(xy 148.59 76.2) (xy 148.59 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0386c80e-f076-4d23-8297-7200049d9059")
 	)
 	(wire
 		(pts
@@ -3972,7 +4193,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 92.71) (xy 73.66 80.01)
+			(xy 73.66 74.93) (xy 73.66 92.71)
 		)
 		(stroke
 			(width 0)
@@ -4022,16 +4243,6 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 76.2) (xy 149.86 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3316d12e-41c5-43c3-93c7-a4a5b8c204ea")
-	)
-	(wire
-		(pts
 			(xy 109.22 67.31) (xy 142.24 67.31)
 		)
 		(stroke
@@ -4052,7 +4263,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 81.28) (xy 161.29 78.74)
+			(xy 161.29 85.09) (xy 161.29 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4142,6 +4353,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 74.93) (xy 191.77 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4713bc6a-2187-4523-9a4f-044d4b4f19da")
+	)
+	(wire
+		(pts
 			(xy 91.44 52.07) (xy 124.46 52.07)
 		)
 		(stroke
@@ -4162,7 +4383,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 111.76) (xy 149.86 76.2)
+			(xy 149.86 111.76) (xy 149.86 80.01)
 		)
 		(stroke
 			(width 0)
@@ -4192,33 +4413,13 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 76.2) (xy 133.35 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5d28fc17-f85f-4f31-ab10-978c56706a4b")
-	)
-	(wire
-		(pts
-			(xy 149.86 76.2) (xy 148.59 76.2)
+			(xy 149.86 80.01) (xy 148.59 80.01)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "5d42af9f-f5df-4fa4-8ec5-2159e8dbdcb4")
-	)
-	(wire
-		(pts
-			(xy 73.66 80.01) (xy 78.74 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5da3b65d-319f-4407-a096-cf714b31ab47")
 	)
 	(wire
 		(pts
@@ -4272,7 +4473,17 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 81.28) (xy 161.29 81.28)
+			(xy 78.74 74.93) (xy 73.66 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71714968-5ff0-44d8-a0c2-2ffc75379ee1")
+	)
+	(wire
+		(pts
+			(xy 191.77 85.09) (xy 161.29 85.09)
 		)
 		(stroke
 			(width 0)
@@ -4302,23 +4513,13 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 78.74) (xy 133.35 78.74)
+			(xy 135.89 82.55) (xy 133.35 82.55)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "74ba180c-771c-4381-8253-9d4a937d3557")
-	)
-	(wire
-		(pts
-			(xy 161.29 71.12) (xy 161.29 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "77c654fe-1232-4a24-937a-8ddbb6229162")
 	)
 	(wire
 		(pts
@@ -4329,6 +4530,16 @@
 			(type default)
 		)
 		(uuid "7917b7bb-094f-4aa4-943a-62def17e42cc")
+	)
+	(wire
+		(pts
+			(xy 158.75 72.39) (xy 158.75 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c9ab4f6-060d-4522-abf0-32c5bd68211d")
 	)
 	(wire
 		(pts
@@ -4359,16 +4570,6 @@
 			(type default)
 		)
 		(uuid "8264ffbb-eac6-4186-b4e1-26241a072321")
-	)
-	(wire
-		(pts
-			(xy 109.22 31.75) (xy 115.57 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "849e766a-0496-4792-a0c4-97aa126d07aa")
 	)
 	(wire
 		(pts
@@ -4452,7 +4653,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 31.75) (xy 109.22 31.75)
+			(xy 91.44 31.75) (xy 115.57 31.75)
 		)
 		(stroke
 			(width 0)
@@ -4472,7 +4673,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 80.01) (xy 121.92 80.01)
+			(xy 121.92 80.01) (xy 135.89 80.01)
 		)
 		(stroke
 			(width 0)
@@ -4562,7 +4763,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 116.84) (xy 152.4 78.74)
+			(xy 152.4 116.84) (xy 152.4 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4582,6 +4783,16 @@
 	)
 	(wire
 		(pts
+			(xy 109.22 20.32) (xy 109.22 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba8c48a6-f44a-4bc5-b9cf-24996d17abdb")
+	)
+	(wire
+		(pts
 			(xy 128.27 57.15) (xy 129.54 57.15)
 		)
 		(stroke
@@ -4589,6 +4800,16 @@
 			(type default)
 		)
 		(uuid "bb771637-2a80-4429-9190-3d18463f55ec")
+	)
+	(wire
+		(pts
+			(xy 158.75 76.2) (xy 148.59 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbf57d81-5a40-4ceb-8084-129f29fd1d4b")
 	)
 	(wire
 		(pts
@@ -4602,7 +4823,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 78.74) (xy 148.59 78.74)
+			(xy 152.4 82.55) (xy 148.59 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4612,17 +4833,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 20.32) (xy 109.22 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2a41f16-9db3-4eb3-a858-3a7c65676ab5")
-	)
-	(wire
-		(pts
-			(xy 161.29 78.74) (xy 152.4 78.74)
+			(xy 161.29 82.55) (xy 152.4 82.55)
 		)
 		(stroke
 			(width 0)
@@ -4649,16 +4860,6 @@
 			(type default)
 		)
 		(uuid "cd6e8660-60b5-41a1-aaf2-2856600d34b3")
-	)
-	(wire
-		(pts
-			(xy 135.89 76.2) (xy 133.35 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cfe4afd8-ae0d-4b4d-9c0b-258016e19c95")
 	)
 	(wire
 		(pts
@@ -4712,16 +4913,6 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 71.12) (xy 161.29 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e38b2178-113f-42fd-b278-de4e1fde02b9")
-	)
-	(wire
-		(pts
 			(xy 91.44 54.61) (xy 125.73 54.61)
 		)
 		(stroke
@@ -4742,7 +4933,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 78.74) (xy 133.35 80.01)
+			(xy 133.35 74.93) (xy 133.35 82.55)
 		)
 		(stroke
 			(width 0)
@@ -5123,7 +5314,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_02x02_Counter_Clockwise")
-		(at 140.97 76.2 0)
+		(at 140.97 80.01 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5131,10 +5322,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "1d127a24-41ce-4e30-a2ca-02d7c54181e1")
 		(property "Reference" "J2"
-			(at 142.24 69.85 0)
+			(at 142.24 73.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5145,7 +5335,7 @@
 			)
 		)
 		(property "Value" "MP1584 Buck Converter"
-			(at 142.24 72.39 0)
+			(at 137.16 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5155,7 +5345,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 140.97 76.2 0)
+			(at 140.97 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5166,7 +5356,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 76.2 0)
+			(at 140.97 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5177,7 +5367,7 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x02, counter clockwise pin numbering scheme (similar to DIP package numbering), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 140.97 76.2 0)
+			(at 140.97 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5398,6 +5588,90 @@
 			(project "crawler_schematic"
 				(path "/c2149483-af64-427b-b729-f25068fe8a40"
 					(reference "STM32F411_BlackPill")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Nidec_CAS-120A1")
+		(at 163.83 74.93 0)
+		(mirror y)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "316ca9f4-29c8-46aa-ad56-2e32d06079ff")
+		(property "Reference" "SW?"
+			(at 163.83 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "switch"
+			(at 163.83 69.85 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:Nidec_Copal_CAS-120A"
+			(at 163.83 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.nidec-components.com/e/catalog/switch/cas.pdf"
+			(at 163.83 82.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Switch, single pole double throw"
+			(at 163.83 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "dcb628d3-67e2-4c11-8562-947b35253e4b")
+		)
+		(pin "1"
+			(uuid "67d79edb-88e6-47ed-9fd3-0bf5cfb84664")
+		)
+		(pin "3"
+			(uuid "ae047eb4-c26b-4c03-8954-26fd656a75f5")
+		)
+		(instances
+			(project "crawler_schematic"
+				(path "/c2149483-af64-427b-b729-f25068fe8a40"
+					(reference "SW?")
 					(unit 1)
 				)
 			)
@@ -5673,7 +5947,7 @@
 	)
 	(symbol
 		(lib_id "Device:Battery")
-		(at 173.99 76.2 0)
+		(at 191.77 80.01 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5684,7 +5958,7 @@
 		(fields_autoplaced yes)
 		(uuid "c7c2b35e-a650-43b1-885b-25358fa8a4bb")
 		(property "Reference" "2S_Lipo"
-			(at 177.8 74.3584 0)
+			(at 195.58 78.1684 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5695,7 +5969,7 @@
 			)
 		)
 		(property "Value" "2S Lipo"
-			(at 177.8 76.8984 0)
+			(at 195.58 80.7084 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5707,7 +5981,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 173.99 74.676 90)
+			(at 191.77 78.486 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5718,7 +5992,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 173.99 74.676 90)
+			(at 191.77 78.486 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5729,7 +6003,7 @@
 			)
 		)
 		(property "Description" "Multiple-cell battery"
-			(at 173.99 76.2 0)
+			(at 191.77 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5740,7 +6014,7 @@
 			)
 		)
 		(property "Sim.Device" "V"
-			(at 173.99 76.2 0)
+			(at 191.77 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5751,7 +6025,7 @@
 			)
 		)
 		(property "Sim.Type" "DC"
-			(at 173.99 76.2 0)
+			(at 191.77 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5762,7 +6036,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=+ 2=-"
-			(at 173.99 76.2 0)
+			(at 191.77 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
