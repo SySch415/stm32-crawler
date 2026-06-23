@@ -45,13 +45,9 @@ extern "C" int main(void) {
   rf.flush_tx();
   rf.clear_flags();
 
-  // DEBUG: disable auto_ack test
-  // rf.write_reg(0x01, 0x00);
-  // rf.write_reg(0x04, 0x00);
-
   while (1) {
     [[maybe_unused]] uint8_t tx_status_debug{0};
-    uint8_t payload[5] /*{0xAB, 0xCD, 0xDF, 0xCC, 0xDD}*/;
+    uint8_t payload[5]{}; //{0xAB, 0xCD, 0xEF, 0xCC, 0xBB};
     throttle = adc.read(hal::ADC::CH::CH0);
     steering = adc.read(hal::ADC::CH::CH1);
 
@@ -62,7 +58,7 @@ extern "C" int main(void) {
     payload[4] = 0;
 
     tx_status_debug =
-        rf.transmit_data(/*reinterpret_cast<uint8_t *>(&vr_x_val)*/ payload, 5);
+        rf.transmit_data(/*reinterpret_cast<uint8_t *>(&payload)*/ payload, 5);
     /*
     for (int i{0}; i < 500000; i++) {
     }
