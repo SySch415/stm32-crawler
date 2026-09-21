@@ -39,9 +39,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8,
-          "height": 1.27,
-          "width": 2.54
+          "drill": 0.0,
+          "height": 1.8,
+          "width": 1.15
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -679,7 +679,7 @@
         "uuid": "c2149483-af64-427b-b729-f25068fe8a40"
       }
     ],
-    "used_designators": "#FLG1-5,#PWR1-21,SW1,2S_Lipo1,C1-2,TB6612_HBridge1,R1,U1,BT1,M1-2,STM32F411_BlackPill1,J1-2",
+    "used_designators": "#FLG1-5,#PWR1-25,SW1,2S_Lipo1,C1-2,TB6612_HBridge1,R1,U1,BT1,M1-2,STM32F411_BlackPill1,J1-2",
     "variants": []
   },
   "sheets": [
