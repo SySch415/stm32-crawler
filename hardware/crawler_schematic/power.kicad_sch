@@ -6438,7 +6438,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm"
+		(property "Footprint" "Inductor_SMD:L_Cenker_CKCS8040"
 			(at 147.32 115.57 0)
 			(hide yes)
 			(show_name no)
@@ -6674,7 +6674,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm"
+		(property "Footprint" "Inductor_SMD:L_Cenker_CKCS8040"
 			(at 146.05 72.39 0)
 			(hide yes)
 			(show_name no)
