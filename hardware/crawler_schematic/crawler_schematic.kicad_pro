@@ -725,7 +725,7 @@
         "uuid": "c2149483-af64-427b-b729-f25068fe8a40"
       }
     ],
-    "used_designators": "#FLG1-5,#PWR1-25,SW1,2S_Lipo1,C1-2,TB6612_HBridge1,R1,U1,BT1,M1-2,STM32F411_BlackPill1,J1-2",
+    "used_designators": "#FLG1-10,#PWR1-45,SW1,2S_Lipo1,C1-2,TB6612_HBridge1,R1,U1,BT1,M1-2,STM32F411_BlackPill1,J1-2",
     "variants": []
   },
   "sheets": [
@@ -736,6 +736,10 @@
     [
       "f59803b5-77ca-45dc-a5c4-a2601d2a75e3",
       "Power Sheet"
+    ],
+    [
+      "f4aa5fd3-fe10-4acc-87fa-c19b63c16c75",
+      "stm32f411ce"
     ]
   ],
   "text_variables": {},
