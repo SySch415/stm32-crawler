@@ -1,0 +1,3 @@
+[submodule "hal_lib"]
+	path = hal_lib
+	url = https://github.com/SySch415/STM32-HAL-Library.git
