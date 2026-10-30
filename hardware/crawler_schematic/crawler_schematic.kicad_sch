@@ -10548,7 +10548,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7bed4f00-c8b5-45b2-a6db-b659ede265ae")
-		(property "Reference" "U?"
+		(property "Reference" "U2"
 			(at 109.22 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10664,7 +10664,7 @@
 		(instances
 			(project "crawler_schematic"
 				(path "/c2149483-af64-427b-b729-f25068fe8a40"
-					(reference "U?")
+					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -13204,7 +13204,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f0d740b6-724b-4978-9202-95b6822bdbb7")
-		(property "Reference" "U_3.?"
+		(property "Reference" "U3"
 			(at 110.49 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13320,7 +13320,7 @@
 		(instances
 			(project "crawler_schematic"
 				(path "/c2149483-af64-427b-b729-f25068fe8a40"
-					(reference "U_3.?")
+					(reference "U3")
 					(unit 1)
 				)
 			)

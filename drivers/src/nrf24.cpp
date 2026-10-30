@@ -87,7 +87,9 @@ void driver::NRF24::set_payload_size(uint8_t pipe, uint8_t size) {
   write_reg(driver::nrf24_cmd_reg::RX_PW_P0 + pipe, size);
 }
 
-void driver::NRF24::pw_up_tx() { write_reg(driver::nrf24_cmd_reg::CONFIG, 14); }
+void driver::NRF24::pw_up_tx() {
+  write_reg(driver::nrf24_cmd_reg::CONFIG, 0xE);
+}
 
 void driver::NRF24::flush_tx() {
   chip_select();
@@ -96,7 +98,7 @@ void driver::NRF24::flush_tx() {
 }
 
 void driver::NRF24::pw_up_rx() {
-  write_reg(driver::nrf24_cmd_reg::CONFIG, 15);
+  write_reg(driver::nrf24_cmd_reg::CONFIG, 0xF);
   ce_.set();
 }
 
@@ -154,5 +156,9 @@ bool driver::NRF24::data_ready() {
 
 void driver::NRF24::chip_select() { csn_.reset(); }
 
-void driver::NRF24::chip_deselect() { csn_.set(); }
+void driver::NRF24::chip_deselect() {
+  for (volatile int i{0}; i < 1000; i++) {
+  };
+  csn_.set();
+}
 } // namespace driver

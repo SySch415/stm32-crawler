@@ -113,21 +113,19 @@ extern "C" int main(void) {
 
   rf.set_rf_channel(76);
   rf.set_rx_addr(0, addr, sizeof(addr));
-  rf.set_payload_size(0, 5);
+  rf.set_payload_size(0, 4);
   rf.write_reg(driver::nrf24_cmd_reg::EN_RXADDR, driver::nrf24_cmd_reg::EN_AA);
   rf.pw_up_rx();
 
   rf.flush_rx();
   rf.clear_flags();
 
-  // rf.write_reg(0x01, 0x00);
-
-  volatile uint8_t debug_status{0};
+  [[maybe_unused]] volatile uint8_t debug_status{0};
   while (1) {
     debug_status = rf.get_status();
     if (rf.data_ready()) {
-      uint8_t recieved[5];
-      rf.receive_data(/*reinterpret_cast<uint8_t *>(&recieved)*/ recieved, 5);
+      uint8_t recieved[4];
+      rf.receive_data(recieved, 4);
 
       uint16_t throttle{
           static_cast<uint16_t>(recieved[0] | (recieved[1] << 8))};

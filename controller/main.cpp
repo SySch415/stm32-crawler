@@ -37,7 +37,7 @@ extern "C" int main(void) {
   uint8_t addr[]{0xE7, 0xE7, 0xE7, 0xE7, 0xE7};
   rf.set_rf_channel(76);
   rf.set_tx_addr(addr, sizeof(addr));
-  rf.set_payload_size(0, 5);
+  rf.set_payload_size(0, 4);
 
   uint16_t throttle{0};
   uint16_t steering{0};
@@ -47,7 +47,7 @@ extern "C" int main(void) {
 
   while (1) {
     [[maybe_unused]] uint8_t tx_status_debug{0};
-    uint8_t payload[5]{}; //{0xAB, 0xCD, 0xEF, 0xCC, 0xBB};
+    uint8_t payload[4]{}; //{0xAB, 0xCD, 0xEF, 0xCC, 0xBB};
     throttle = adc.read(hal::ADC::CH::CH0);
     steering = adc.read(hal::ADC::CH::CH1);
 
@@ -55,13 +55,8 @@ extern "C" int main(void) {
     payload[1] = throttle >> 8;
     payload[2] = steering & 0xFF;
     payload[3] = steering >> 8;
-    payload[4] = 0;
+    // payload[4] = 0;
 
-    tx_status_debug =
-        rf.transmit_data(/*reinterpret_cast<uint8_t *>(&payload)*/ payload, 5);
-    /*
-    for (int i{0}; i < 500000; i++) {
-    }
-  */
+    tx_status_debug = rf.transmit_data(payload, 4);
   }
 }
