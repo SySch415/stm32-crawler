@@ -305,4 +305,9 @@ Currently a prototype-level build. The KiCad schematic is in [`hardware/controll
 
 ## License
 
-[MIT](LICENSE) © 2026 Simon Schmidt
+- **Firmware** (`controller/`, `crawler/`, `drivers/`): [MIT](LICENSE) © 2026 Simon Schmidt
+- **Hardware design files** (`hardware/`): [CERN-OHL-P v2](hardware/LICENSE) © 2026 Simon Schmidt
+
+The ARCS name and logo belong to Avionics, Robotics, and Control Systems, a nonprofit corporation and IRS-recognized 501(c)(3) public charity, and are used with permission.
+They are **not** covered by the MIT or CERN-OHL licenses above. If you build or modify this board,
+please remove the ARCS logo from the silkscreen.
