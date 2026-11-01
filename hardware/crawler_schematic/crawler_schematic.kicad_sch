@@ -15834,7 +15834,7 @@
 			)
 		)
 		(property "Value" "NC"
-			(at 365.76 62.23 0)
+			(at 364.49 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
