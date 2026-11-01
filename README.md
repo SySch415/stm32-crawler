@@ -2,7 +2,7 @@
 
 ![MITE v1 board render](docs/images/mite-v1-3d.png)
 
-### MITE(Micro Inline Terrain ESC)
+### MITE (Micro Inline Terrain ESC)
 
 A from-scratch Electronic Speed Controller for SCX24 rock crawlers, built around the STM32F411. It has two parts:
 
