@@ -1,8 +1,8 @@
-# STM32 Rock Crawler
+# MITE - SCX24 Electronic Speed Controller
 
 ![MITE v1 board render](docs/images/mite-v1-3d.png)
 
-A from-scratch radio control system for a 1/24-scale RC rock crawler, built around the STM32F411. It has two parts:
+A from-scratch Electronic Speed Controller for SCX24 rock crawlers, built around the STM32F411. It has two parts:
 
 - **Crawler**: receives commands over a 2.4 GHz nRF24L01+ link and drives a brushed 050 motor through a TB6612FNG H-bridge plus a steering servo. Its custom board is **MITE v1**, shown above.
 - **Controller**: a handheld transmitter that reads a 2-axis joystick and sends throttle and steering to the crawler.
