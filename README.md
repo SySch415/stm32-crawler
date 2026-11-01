@@ -168,15 +168,15 @@ The controller transmits continuously, and the crawler listens on pipe 0.
 
 ### MITE v1 board (as routed, pending firmware update)
 
-> ⚠️ Several pins moved during PCB layout. **The crawler firmware has to be updated before it runs on MITE v1.**
+> Several pins moved during PCB layout. **The crawler firmware has to be updated before it runs on MITE v1.**
 
 | Signal           | Pin           | Peripheral        | Changed? |
 | ---------------- | ------------- | ----------------- | -------- |
 | nRF CE           | PA7           | GPIO              | ✱        |
 | nRF CSN          | PA6           | GPIO              | ✱        |
 | nRF SCK          | PA5           | SPI1_SCK          |          |
-| nRF MISO         | PA3           | ⚠️ under review   | ✱        |
-| nRF MOSI         | PA4           | ⚠️ under review   | ✱        |
+| nRF MISO         | PA3           | under review      | ✱        |
+| nRF MOSI         | PA4           | under review      | ✱        |
 | nRF IRQ          | not connected | (polled over SPI) |          |
 | Motor PWM (PWMA) | PB4           | TIM3_CH1          | ✱        |
 | AIN1             | PB6           | GPIO              | ✱        |
